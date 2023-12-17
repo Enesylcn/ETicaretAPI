@@ -51,16 +51,17 @@ namespace ETicaretAPI.Persistence.Repositories
             Table.RemoveRange(datas);
             return true;
         }
-
-
-        public async Task<int> SaveAsync(T model)
-           => await _context.SaveChangesAsync();
-
         public bool Update(T model)
         {
 
             EntityEntry entityEntry = Table.Update(model);
             return entityEntry.State != EntityState.Modified;
         }
+
+
+        public async Task<int> SaveAsync()
+           => await _context.SaveChangesAsync();
+
+      
     }
 }
