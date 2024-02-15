@@ -25,7 +25,7 @@ namespace ETicaretAPI.Persistence.Repositories
 
         public DbSet<T> Table => _context.Set<T>();
 
-        public IQueryable<T> GetAll(bool tracking)
+        public IQueryable<T> GetAll(bool tracking= true)
         {
             var query = Table.AsQueryable();
             if (!tracking)
@@ -58,7 +58,7 @@ namespace ETicaretAPI.Persistence.Repositories
             return await query.FirstOrDefaultAsync(method);
         }
 
-        public async Task<T> GetByIdAsync(string id, bool tracking)
+        public async Task<T> GetByIdAsync(string id, bool tracking = true)
         {
             var query = Table.AsQueryable();
             if (!tracking)
