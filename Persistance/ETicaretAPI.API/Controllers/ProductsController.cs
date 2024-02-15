@@ -1,4 +1,5 @@
 ﻿using ETicaretAPI.Application.Repositories;
+using ETicaretAPI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ETicaretAPI.API.Controllers
@@ -11,22 +12,28 @@ namespace ETicaretAPI.API.Controllers
         readonly private IProductWriteRepository _productWriteRepository;
         readonly private IProductReadRepository _productReadRepository;
 
-        public ProductController(IProductReadRepository productReadRepostory, IProductWriteRepository productWriteRepostory)
+        readonly private IOrderWriteRepository _orderWriteRepository;
+        readonly private ICustomerWriteRepository _customerWriteRepository;
+        readonly private IOrderReadRepository _orderReadRepository;
+
+        public ProductController(
+            IProductReadRepository productReadRepostory,
+            IProductWriteRepository productWriteRepostory,
+            IOrderWriteRepository orderWriteRepository,
+            ICustomerWriteRepository customerWriteRepository,
+            IOrderReadRepository orderReadRepository)
         {
             _productReadRepository = productReadRepostory;
             _productWriteRepository = productWriteRepostory;
+            _orderWriteRepository = orderWriteRepository;
+            _customerWriteRepository = customerWriteRepository;
+            _orderReadRepository = orderReadRepository;
         }
 
         [HttpGet]
-        public async void Get()
+        public async Task<IActionResult> Get()
         {
-           await _productWriteRepository.AddRangeAsync(new()
-            {
-                new() { Id = Guid.NewGuid(), Name = "Product 1", Price= 100, CratedDate = DateTime.UtcNow, Stock= 10},
-                new() { Id = Guid.NewGuid(), Name = "Product 2", Price= 200, CratedDate = DateTime.UtcNow, Stock= 20},
-                new() { Id = Guid.NewGuid(), Name = "Product 3", Price= 300, CratedDate = DateTime.UtcNow, Stock= 30}
-            });
-           var count =  await _productWriteRepository.SaveAsync();
+            return  Ok("merhaba");
         }
 
     }
